@@ -5,6 +5,12 @@ terraform {
     }
   }
   required_version = ">1.12.0"
+  
+  /*provider_installation {
+    dev_overrides {
+      "hashicorp/yandex" = ["yandex-cloud/yandex"]
+    }
+  }*/
 }
 
 provider "yandex" {
