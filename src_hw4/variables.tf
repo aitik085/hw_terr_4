@@ -70,7 +70,7 @@ variable "public_ip" {
 
 variable "env_name_m_vm" {
   type        = string
-  default     = "VM"
+  default     = "vm"
   description = "env_name для модуля m_vm."
 }
 
@@ -82,7 +82,7 @@ variable "instance_name_m_vm" {
 
 variable "env_name_a_vm" {
   type        = string
-  default     = "VM"
+  default     = "vm"
   description = "env_name для модуля a_vm."
 }
 
@@ -115,6 +115,19 @@ variable "vm_platform_id" {
   default     = "standard-v3"
   description = "Платформа для ВМ."
 }
+
+variable "vm_a_core_fraction" {
+  type        = number
+  default     = 20
+  description = "Доля выделенных ресурсов CPU для аналитической ВМ."
+}
+
+variable "vm_m_core_fraction" {
+  type        = number
+  default     = 20
+  description = "Доля выделенных ресурсов CPU для маркетинговой ВМ."
+}
+
 
 
 

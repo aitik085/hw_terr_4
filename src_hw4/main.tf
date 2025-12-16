@@ -18,14 +18,16 @@ module "analytics_vm" {
   subnet_zones   = [var.default_zone]
   subnet_ids     = [yandex_vpc_subnet.develop.id]
   instance_name  = var.instance_name_a_vm
-  platform       = var.vm_platform_id    
-  instance_count = 1
+  platform       = var.vm_platform_id
+  instance_core_fraction  = var.vm_a_core_fraction  
   image_family   = var.vm_image_family
   public_ip      = var.public_ip  
   boot_disk_size = var.vm_disk_size
   boot_disk_type = var.hdd
+  instance_count = 1
+  
   labels = { 
-    owner= "CR7",
+    owner= "cr7",
     project = "analytics"
      }
   metadata = {
@@ -51,14 +53,15 @@ module "marketing_vm" {
   subnet_ids     = [yandex_vpc_subnet.develop.id]
   instance_name  = var.instance_name_m_vm
   platform    = var.vm_platform_id  
-  instance_count = 1
   image_family   = var.vm_image_family
   public_ip      = var.public_ip
   boot_disk_size      = var.vm_disk_size
   boot_disk_type      = var.hdd
+  instance_core_fraction  = var.vm_m_core_fraction   
+  instance_count = 1
 
   labels = { 
-    owner= "Jason Statham",
+    owner= "jason_statham",
     project = "marketing"
      }
 
