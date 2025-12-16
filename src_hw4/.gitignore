@@ -10,3 +10,8 @@
 
 # own secret vars store.
 personal.auto.tfvars
+
+#ansible
+hosts.ini
+for.ini
+hosts.yaml
