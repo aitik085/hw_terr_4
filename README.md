@@ -32,8 +32,8 @@
 ![скриншот консоли ВМ yandex cloud с их метками](img/l2.png)
 ------
 ![скриншот содержимого модулей](img/l3.png)
-
 ------
+
 В случае использования MacOS вы получите ошибку "Incompatible provider version" . В этом случае скачайте remote модуль локально и поправьте в нем версию template провайдера на более старую.
 ------
 
@@ -62,6 +62,27 @@ module "vpc_dev" {
 3. Полностью удалите из стейта модуль vm.
 4. Импортируйте всё обратно. Проверьте terraform plan. Значимых(!!) изменений быть не должно.
 Приложите список выполненных команд и скриншоты процессы.
+
+```
+terraform state list
+
+terraform state rm module.marketing_vm
+terraform state rm module.analytics_vm
+
+terraform import module.vpc.yandex_vpc_network.develop enp0ocr7dj0dv3n9ju3f
+terraform import module.vpc.yandex_vpc_subnet.develop e9b8an7ftb5t21uvtv1e
+
+terraform import 'module.marketing_vm.yandex_compute_instance.example' fhmaab1f62bpvde2f30d
+terraform import 'module.analytics_vm.yandex_compute_instance.example' fhmptrr08ccv7svbn4g0
+
+terraform plan
+
+ssh ubuntu@178.154.204.143
+sudo nginx -t
+```
+
+![скриншот списока выполненных команд и процессов ](img/l3.png)
+---
 
 ## Дополнительные задания (со звёздочкой*)
 
