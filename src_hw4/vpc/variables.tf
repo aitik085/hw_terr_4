@@ -10,11 +10,11 @@ variable "subnet_name" {
 }
 
 variable "subnet_cidr" {
-  description = "CIDR блок для подсети (например, 10.10.0.0/24)."
+  description = "CIDR блок для подсети (10.10.0.0/24)."
   type        = string
 }
 
 variable "zone" {
-  description = "Зона доступности, в которой будет создана подсеть (например, ru-central1-a)."
+  description = "Зона доступности, в которой будет создана подсеть (ru-central1-a)."
   type        = string
 }

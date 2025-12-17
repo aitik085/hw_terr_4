@@ -10,5 +10,14 @@ resource "yandex_vpc_subnet" "subnet" {
   v4_cidr_blocks = [var.subnet_cidr]
   zone           = var.zone
 }
-
-
+/*
+resource "yandex_vpc_network" "vpc_dev" {
+  name = var.vpc_name
+}
+resource "yandex_vpc_subnet" "develop" {
+  name           = var.vpc_name
+  zone           = var.default_zone
+  network_id     = yandex_vpc_network.develop.id
+  v4_cidr_blocks = var.default_cidr
+}
+*/
