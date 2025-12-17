@@ -43,7 +43,9 @@
 2. Вы должны передать в модуль переменные с названием сети, zone и v4_cidr_blocks.
 3. Модуль должен возвращать в root module с помощью output информацию о yandex_vpc_subnet. Пришлите скриншот информации из terraform console о своем модуле. Пример: > module.vpc_dev  
 4. Замените ресурсы yandex_vpc_network и yandex_vpc_subnet созданным модулем. Не забудьте передать необходимые параметры сети из модуля vpc в модуль с виртуальной машиной.
-5. Сгенерируйте документацию к модулю с помощью terraform-docs.
+5. Сгенерируйте документацию к модулю с помощью terraform-docs. 
+
+[Сгенерированная документация к модулю vpc_dev с помощью terraform-docs](./src_hw4/vpc/README.md)  
  
 Пример вызова
 
@@ -241,6 +243,8 @@ ubuntu@vm-analytic-0:~$ sudo nginx -t
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ubuntu@vm-analytic-0:~$ 
+
+```bash curl -Lo ./terraform-docs https://www.google.com/search?q=https://github.com/terraform-docs/terraform-docs/releases/download/v0.16.0/terraform-docs-v0.16.0-%24(uname)-amd64 chmod +x ./terraform-docs sudo mv ./terraform-docs /usr/local/bin/
 
 ```
 ---
