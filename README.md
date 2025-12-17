@@ -280,6 +280,122 @@ module "vpc_dev" {
 }
 ```
 
+```
+Добавил новый модуль vpc_prod
+
+# Создание сети
+resource "yandex_vpc_network" "prod_network" {
+  name = "${var.env_name}-network"
+}
+
+# Создание подсетей через цикл
+resource "yandex_vpc_subnet" "subnet" {
+  # Преобразуем список в карту, чтобы использовать for_each
+  for_each = { for s in var.subnets : s.zone => s }
+  name           = "${var.env_name}-subnet-${each.value.zone}"
+  zone           = each.value.zone
+  network_id     = yandex_vpc_network.prod_network.id
+  v4_cidr_blocks = [each.value.cidr]
+}
+
+Вызов модуля
+
+module "vpc_prod" {
+  source   = "./vpc_prod"
+  env_name = "production"
+  subnets  = [
+    { zone = var.default_zone, cidr = var.default_cidr[0] },
+    { zone = var.zone_b,       cidr = var.default_cidr[1] },
+    { zone = var.zone_c,       cidr = var.default_cidr[2] },
+  ]
+}
+
+terraform plan 
+
+# module.vpc_dev.yandex_vpc_network.network will be created
+  + resource "yandex_vpc_network" "network" {
+      + created_at                = (known after apply)
+      + default_security_group_id = (known after apply)
+      + folder_id                 = (known after apply)
+      + id                        = (known after apply)
+      + labels                    = (known after apply)
+      + name                      = "develop"
+      + subnet_ids                = (known after apply)
+    }
+
+  # module.vpc_dev.yandex_vpc_subnet.subnet will be created
+  + resource "yandex_vpc_subnet" "subnet" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "develop-subnet"
+      + network_id     = (known after apply)
+      + v4_cidr_blocks = [
+          + "10.0.1.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-a"
+    }
+
+  # module.vpc_prod.yandex_vpc_network.prod_network will be created
+  + resource "yandex_vpc_network" "prod_network" {
+      + created_at                = (known after apply)
+      + default_security_group_id = (known after apply)
+      + folder_id                 = (known after apply)
+      + id                        = (known after apply)
+      + labels                    = (known after apply)
+      + name                      = "production-network"
+      + subnet_ids                = (known after apply)
+    }
+
+  # module.vpc_prod.yandex_vpc_subnet.subnet["ru-central1-a"] will be created
+  + resource "yandex_vpc_subnet" "subnet" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "production-subnet-ru-central1-a"
+      + network_id     = (known after apply)
+      + v4_cidr_blocks = [
+          + "10.0.1.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-a"
+    }
+
+  # module.vpc_prod.yandex_vpc_subnet.subnet["ru-central1-b"] will be created
+  + resource "yandex_vpc_subnet" "subnet" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "production-subnet-ru-central1-b"
+      + network_id     = (known after apply)
+      + v4_cidr_blocks = [
+          + "10.0.2.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-b"
+    }
+
+  # module.vpc_prod.yandex_vpc_subnet.subnet["ru-central1-c"] will be created
+  + resource "yandex_vpc_subnet" "subnet" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "production-subnet-ru-central1-c"
+      + network_id     = (known after apply)
+      + v4_cidr_blocks = [
+          + "10.0.3.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-c"
+    }
+
+Plan: 8 to add, 0 to change, 0 to destroy.
+```
 Предоставьте код, план выполнения, результат из консоли YC.
 
 ### Задание 5*
